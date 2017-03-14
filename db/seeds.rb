@@ -103,7 +103,7 @@ films_hash.each do |f|
   @film_location_summary << film_loc
 end
 #
-# @full_film_location_data.each do |f|
+# @film_location_summary.each do |f|
 #   film = Film.find_or_create_by(title: f.title)
 #   film_location = FilmLocation.find_or_create_by(
 #     location: f.locations
