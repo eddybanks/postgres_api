@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170307222246) do
+ActiveRecord::Schema.define(version: 20170314173250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "companies", force: :cascade do |t|
+    t.string   "name"
+    t.string   "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "film_companies", force: :cascade do |t|
+    t.integer  "film_id"
+    t.integer  "company_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_film_companies_on_company_id", using: :btree
+    t.index ["film_id"], name: "index_film_companies_on_film_id", using: :btree
+  end
 
   create_table "film_location_summaries", force: :cascade do |t|
     t.string   "title"
@@ -29,6 +45,12 @@ ActiveRecord::Schema.define(version: 20170307222246) do
     t.string   "actor3"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+  end
+
+  create_table "films", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "park_summaries", force: :cascade do |t|
@@ -48,4 +70,6 @@ ActiveRecord::Schema.define(version: 20170307222246) do
     t.datetime "updated_at",        null: false
   end
 
+  add_foreign_key "film_companies", "companies"
+  add_foreign_key "film_companies", "films"
 end
